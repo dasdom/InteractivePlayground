@@ -4,5 +4,7 @@
         <page name='Push View Controller'/>
         <page name='Animated Buttons'/>
         <page name='Gesture Recognizer'/>
+        <page name='Text Input'/>
+        <page name='SpriteKit'/>
     </pages>
 </playground>
