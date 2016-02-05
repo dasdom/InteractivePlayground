@@ -6,5 +6,7 @@
         <page name='Gesture Recognizer'/>
         <page name='Text Input'/>
         <page name='SpriteKit'/>
+        <page name='Spring Animation'/>
+        <page name='Responder Chain'/>
     </pages>
 </playground>
