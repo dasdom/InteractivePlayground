@@ -1,7 +1,7 @@
 //: [Previous](@previous)
 
 import UIKit
-import XCPlayground
+import PlaygroundSupport
 
 class View: UIView {
   let titleTextField: UITextField
@@ -17,27 +17,27 @@ class View: UIView {
     titleLabel.backgroundColor = UIColor(white: 0.98, alpha: 1.0)
     titleLabel.text = " "
     
-    button = UIButton(type: .System)
-    button.setTitle("Set Text", forState: .Normal)
-    button.addTarget(nil, action: "setText", forControlEvents: .TouchUpInside)
+    button = UIButton(type: .system)
+    button.setTitle("Set Text", for: .normal)
+    button.addTarget(nil, action: #selector(ViewController.setText), for: .touchUpInside)
     
     super.init(frame: frame)
     
-    backgroundColor = UIColor.whiteColor()
+    backgroundColor = UIColor.white
 
     let stackView = UIStackView(arrangedSubviews: [titleTextField, titleLabel, button])
     stackView.translatesAutoresizingMaskIntoConstraints = false
-    stackView.axis = .Vertical
-    stackView.distribution = .EqualSpacing
+    stackView.axis = .vertical
+    stackView.distribution = .equalSpacing
     stackView.spacing = 10
     
     addSubview(stackView)
     
     let views = ["stackView": stackView]
     var layoutConstraints = [NSLayoutConstraint]()
-    layoutConstraints += NSLayoutConstraint.constraintsWithVisualFormat("|-20-[stackView]-20-|", options: [], metrics: nil, views: views)
-    layoutConstraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|-50-[stackView]", options: [], metrics: nil, views: views)
-    NSLayoutConstraint.activateConstraints(layoutConstraints)
+    layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "|-20-[stackView]-20-|", options: [], metrics: nil, views: views)
+    layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-50-[stackView]", options: [], metrics: nil, views: views)
+    NSLayoutConstraint.activate(layoutConstraints)
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -61,6 +61,6 @@ class ViewController: UIViewController {
 let viewController = ViewController()
 viewController.view.frame = CGRect(x: 0, y: 0, width: 320, height: 400)
 
-XCPlaygroundPage.currentPage.liveView = viewController.view
+PlaygroundPage.current.liveView = viewController.view
 
 //: [Next](@next)

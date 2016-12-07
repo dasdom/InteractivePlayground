@@ -1,7 +1,7 @@
 //: [Previous](@previous)
 
 import UIKit
-import XCPlayground
+import PlaygroundSupport
 
 class View: UIView {
   
@@ -22,11 +22,11 @@ class View: UIView {
       
       let label = UILabel()
       label.text = labelText + ": \(sliderMin)"
-      label.textAlignment = .Center
+      label.textAlignment = .center
       
       let stackView = UIStackView(arrangedSubviews: [label, slider])
-      stackView.axis = .Vertical
-      stackView.alignment = .Fill
+      stackView.axis = .vertical
+      stackView.alignment = .fill
       return (label, slider, stackView)
     }
     
@@ -40,34 +40,34 @@ class View: UIView {
     (initialVelocityLabel, initialVelocitySlider, velocityStackView) = makeStackView("Initial Velocity", 0, 5)
     
     let button = UIButton()
-    button.setTitle("Animate", forState: .Normal)
-    button.backgroundColor = UIColor.blueColor()
+    button.setTitle("Animate", for: .normal)
+    button.backgroundColor = UIColor.blue
     
     let stackView = UIStackView(arrangedSubviews: [durationStackView, dampingStackView, velocityStackView, button])
     stackView.translatesAutoresizingMaskIntoConstraints = false
-    stackView.axis = .Vertical
+    stackView.axis = .vertical
     stackView.spacing = 30
     
     redBox = UIView(frame: CGRect(x: 50, y: 20, width: 30, height: 30))
-    redBox.backgroundColor = UIColor.redColor()
+    redBox.backgroundColor = UIColor.red
     
     super.init(frame: frame)
     
-    backgroundColor = UIColor.whiteColor()
+    backgroundColor = UIColor.white
     
     addSubview(redBox)
     addSubview(stackView)
     
-    durationSlider.addTarget(self, action: "changeDuration:", forControlEvents: .ValueChanged)
-    dampingSlider.addTarget(self, action: "changeDamping:", forControlEvents: .ValueChanged)
-    initialVelocitySlider.addTarget(self, action: "changeVelocity:", forControlEvents: .ValueChanged)
-    button.addTarget(self, action: "animate", forControlEvents: .TouchUpInside)
+    durationSlider.addTarget(self, action: #selector(changeDuration(sender:)), for: .valueChanged)
+    dampingSlider.addTarget(self, action: #selector(changeDamping(sender:)), for: .valueChanged)
+    initialVelocitySlider.addTarget(self, action: #selector(changeVelocity(sender:)), for: .valueChanged)
+    button.addTarget(self, action: #selector(View.animate as (View) -> () -> ()), for: .touchUpInside)
     
     let views = ["stackView": stackView]
     var layoutConstraints = [NSLayoutConstraint]()
-    layoutConstraints += NSLayoutConstraint.constraintsWithVisualFormat("|-[stackView]-|", options: [], metrics: nil, views: views)
-    layoutConstraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|-80-[stackView]", options: [], metrics: nil, views: views)
-    NSLayoutConstraint.activateConstraints(layoutConstraints)
+    layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "|-[stackView]-|", options: [], metrics: nil, views: views)
+    layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-80-[stackView]", options: [], metrics: nil, views: views)
+    NSLayoutConstraint.activate(layoutConstraints)
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -75,7 +75,7 @@ class View: UIView {
   }
   
   func animate() {
-    UIView.animateWithDuration(Double(durationSlider.value), delay: 0.0, usingSpringWithDamping:CGFloat(dampingSlider.value), initialSpringVelocity: CGFloat(initialVelocitySlider.value), options: [], animations: {
+    UIView.animate(withDuration: Double(durationSlider.value), delay: 0.0, usingSpringWithDamping:CGFloat(dampingSlider.value), initialSpringVelocity: CGFloat(initialVelocitySlider.value), options: [], animations: {
       if self.redBox.frame.origin.x > 100 {
         self.redBox.frame.origin.x = 50
       } else {
@@ -101,6 +101,6 @@ class View: UIView {
 
 let view = View(frame: CGRect(x: 0, y: 0, width: 300, height: 400))
 
-XCPlaygroundPage.currentPage.liveView = view
+PlaygroundPage.current.liveView = view
 
 //: [Next](@next)
